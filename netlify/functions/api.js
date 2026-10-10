@@ -85,9 +85,9 @@ async function sendOtp(b) {
 
   const r = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'api-key': process.env.BREVO_API_KEY, accept: 'application/json' },
+    headers: { 'content-type': 'application/json', 'api-key': String(process.env.BREVO_API_KEY).replace(/[^\x21-\x7e]/g, ''), accept: 'application/json' },
     body: JSON.stringify({
-      sender: { name: 'NanoGram', email: process.env.SENDER_EMAIL },
+      sender: { name: 'NanoGram', email: String(process.env.SENDER_EMAIL).replace(/[^\x21-\x7e]/g, '') },
       to: [{ email, name }],
       subject: 'NanoGram tasdiqlash kodi: ' + code,
       htmlContent: html
